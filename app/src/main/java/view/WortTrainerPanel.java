@@ -54,7 +54,7 @@ public class WortTrainerPanel extends JPanel {
         unten.add(anzahlZahl);
         unten.add(speichern);
         this.add(unten, BorderLayout.PAGE_END);
-        ImageIcon icon = new ImageIcon(new URL("https://www.pinclipart.com/picdir/middle/20-206356_wenn-hund-clipart.png"));
+        ImageIcon icon = new ImageIcon(new URL("https://www.radioessen.de/externalimages/?source=jpg140/www.vieler-photography.com1.jpg&dt=201908261605150&resize=1000x750"));
         Image image = icon.getImage();
         image = image.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
         this.imgLabel = new JLabel(new ImageIcon(image));
