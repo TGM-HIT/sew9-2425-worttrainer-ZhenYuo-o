@@ -13,7 +13,7 @@ import java.net.URL;
  * Die Panel-Klasse im View von MVC.
  * Diese bringt das Aussehen des Programms
  * @author ZhenYu Zhan
- * @version 16.11.2022
+ * @version 05.10.2024
  */
 public class WortTrainerPanel extends JPanel {
     private JTextField textField = new JTextField();

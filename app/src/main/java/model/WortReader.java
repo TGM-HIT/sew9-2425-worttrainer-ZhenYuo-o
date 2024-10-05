@@ -6,6 +6,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * WortReader
+ *
+ * @author ZhenYu Zhan
+ * @version 05.10.2024
+ */
+
 public class WortReader {
 
     private final List<WortEintrag> WORTEINTRAEGE = new ArrayList<>();

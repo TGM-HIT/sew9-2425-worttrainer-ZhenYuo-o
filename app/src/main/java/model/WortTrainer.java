@@ -15,14 +15,14 @@ public class WortTrainer implements Serializable {
     private WortListe liste;
     private Random zufall = new Random();
     private WortEintrag speicherEintrag;
-    private int abgefragt = 0;
-    private int richtig = 0;
+    private int abgefragt;
+    private int richtig;
     private static final String WORT_DATEI = "app/src/main/java/resources/woerter.csv";
 
     public void initialization() {
         WortReader wortReader = new WortReader(WORT_DATEI);
         this.liste = new WortListe(wortReader.getWORTEINTRAEGE());
-        this.abgefragt = 0;
+
     }
 
     public WortTrainer(WortListe liste) {
@@ -77,7 +77,12 @@ public class WortTrainer implements Serializable {
         this.abgefragt = 0;
     }
 
-    public String getAktuellerWort() {
+    public void setStatistik(int richtig, int abgefragt) {
+        this.richtig = richtig;
+        this.abgefragt = abgefragt;
+    }
+
+    public String getAktuellesWort() {
         return this.speicherEintrag.getWort();
     }
 
