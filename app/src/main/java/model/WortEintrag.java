@@ -5,7 +5,12 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.util.Objects;
-
+/**
+ * WortEintrag
+ *
+ * @author ZhenYu Zhan
+ * @version 05.10.2024
+ */
 public class WortEintrag implements Serializable {
     static final long serialVersionUID = 1L;
     private String wort;
@@ -24,7 +29,7 @@ public class WortEintrag implements Serializable {
         }
     }
 
-    public boolean checkURL(String url) {
+    public static boolean checkURL(String url) {
     try {
         new URI(url);
         return true;

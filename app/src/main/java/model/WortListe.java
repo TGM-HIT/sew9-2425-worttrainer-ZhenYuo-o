@@ -3,10 +3,16 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+/**
+ * WortListe
+ *
+ * @author ZhenYu Zhan
+ * @version 05.10.2024
+ */
 
 public class WortListe {
     static final long serialVersionUID = 1L;
-    private List<WortEintrag> wortListe = new ArrayList<WortEintrag>();
+    List<WortEintrag> wortListe = new ArrayList<WortEintrag>();
 
     public WortListe(List<WortEintrag> wortListe) {
         this.wortListe = Objects.requireNonNull(wortListe, "Das Wort darf nicht null sein");
