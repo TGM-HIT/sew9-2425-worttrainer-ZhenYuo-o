@@ -28,8 +28,8 @@ public class WortTrainerController extends KeyAdapter implements ActionListener 
     private ArrayList<WortEintrag> liste = wortReader.getWortEintraege();
     private WortTrainer model = new WortTrainer(this.liste);;
     private SpeichernLaden file;
-    private WortTrainerPanel panel = new WortTrainerPanel(this, this);
-    private WortTrainerFrame frame = new WortTrainerFrame("WortTainer", panel);
+    private WortTrainerPanel panel;
+    private WortTrainerFrame frame;
     private final String filePath = "WortTrainer.txt";
 
     public WortTrainerController() throws MalformedURLException {
@@ -37,7 +37,8 @@ public class WortTrainerController extends KeyAdapter implements ActionListener 
 
     public void initialisierung() throws Exception {
         this.model.zufall();
-        this.panel.imageUpdate(this.model.getAktuelleURL());
+        this.panel = new WortTrainerPanel(this, this, this.model.getAktuelleURL());
+        this.frame = new WortTrainerFrame("WortTainer", panel);
         this.file = new SpeichernLaden(this.model);
         if (Files.exists(Paths.get(filePath))) {
             System.out.println("Speicherdatei gefunden, lade Daten...");

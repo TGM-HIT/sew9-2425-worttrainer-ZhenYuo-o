@@ -1,9 +1,5 @@
 package view;
 
-import model.WortEintrag;
-import model.WortReader;
-import model.WortTrainer;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -28,8 +24,9 @@ public class WortTrainerPanel extends JPanel {
     private String url;
     private final Color color = new Color(235, 235, 235);
 
-    public WortTrainerPanel(ActionListener ah, KeyListener kh) throws MalformedURLException {
+    public WortTrainerPanel(ActionListener ah, KeyListener kh, String url) throws Exception {
         grafik = new WortTrainerGrafik();
+        imgLabel = new JLabel();
         this.setLayout(new BorderLayout(3, 3));
         this.setBackground(color);
         Border bd = BorderFactory.createEmptyBorder(5, 5, 5, 5);
@@ -60,21 +57,26 @@ public class WortTrainerPanel extends JPanel {
         unten.add(anzahlZahl);
         unten.add(nextWord);
         this.add(unten, BorderLayout.PAGE_END);
-        this.imgLabel = new JLabel(new ImageIcon(""));
+        this.imgLabel = new JLabel(imageUpdate(url));
         this.add(this.imgLabel, BorderLayout.CENTER);
         this.reset.addActionListener(ah);
         this.nextWord.addActionListener(ah);
         this.textField.addKeyListener(kh);
     }
 
-    public void imageUpdate(String link) throws Exception {
+    public ImageIcon imageUpdate(String link) throws Exception {
         URI uri = new URI(link);
         URL url = uri.toURL();
         ImageIcon icon = new ImageIcon(url);
         Image image = icon.getImage();
         image = image.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
-        this.imgLabel.setIcon(new ImageIcon(image));
-        this.imgLabel.updateUI();
+        Image finalImage = image;
+        //rufe updateUI() nach dem return
+        SwingUtilities.invokeLater(() -> {
+            this.imgLabel.setIcon(new ImageIcon(finalImage));
+            this.imgLabel.updateUI();
+        });
+        return new ImageIcon(image);
     }
 
     public void update(int correct, int number) {
