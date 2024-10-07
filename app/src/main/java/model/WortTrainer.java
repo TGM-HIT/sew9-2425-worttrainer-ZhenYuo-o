@@ -18,22 +18,9 @@ public class WortTrainer implements Serializable {
     private WortEintrag speicherEintrag;
     private int abgefragt;
     private int richtig;
-    private static final String WORT_DATEI = "app/src/main/java/resources/woerter.csv";
-
-    public void initialization() {
-        WortReader wortReader = new WortReader(WORT_DATEI);
-        this.liste = wortReader.getWortEintraege();
-
-    }
 
     public WortTrainer(ArrayList<WortEintrag> liste) {
         this.liste = Objects.requireNonNull(liste, "Die WortListe darf nicht null sein");
-    }
-
-    public WortTrainer(ArrayList<WortEintrag> liste, int abgefragt, int richtig) {
-        this(liste);
-        this.abgefragt = abgefragt;
-        this.richtig = richtig;
     }
 
     public void zufall() {
@@ -47,7 +34,8 @@ public class WortTrainer implements Serializable {
     }
 
     public boolean checkIgnoreCase(String wort) {
-        if (this.speicherEintrag.getWort().equalsIgnoreCase(wort)) {
+        String wort2 = (this.speicherEintrag == null) ? "Hund" : this.speicherEintrag.getWort();
+        if (wort2.equalsIgnoreCase(wort)) {
             this.richtig++;
             return true;
         }

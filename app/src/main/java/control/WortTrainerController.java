@@ -2,6 +2,7 @@ package control;
 
 import model.SpeichernLaden;
 import model.WortEintrag;
+import model.WortReader;
 import model.WortTrainer;
 import view.WortTrainerFrame;
 import view.WortTrainerPanel;
@@ -22,19 +23,23 @@ import java.util.ArrayList;
  * @version 07.10.2024
  */
 public class WortTrainerController extends KeyAdapter implements ActionListener {
-    private ArrayList<WortEintrag> liste = new ArrayList<>();
+    private static final String WORT_DATEI = "app/src/main/java/resources/woerter.csv";
+    private WortReader wortReader = new WortReader(WORT_DATEI);
+    private ArrayList<WortEintrag> liste  = wortReader.getWortEintraege();
     private WortTrainer model = new WortTrainer(this.liste);;
     private SpeichernLaden file;
-    private WortTrainerPanel panel = new WortTrainerPanel(this, this);
+    private WortTrainerPanel panel = new WortTrainerPanel(model.getAktuelleURL(),this, this);
     private WortTrainerFrame frame = new WortTrainerFrame("WortTainer", panel);
-    private final String filePath = "WortTrainer.txt";
+    private final String FILEPATH = "WortTrainer.txt";
+
+
 
     public WortTrainerController() throws MalformedURLException {
     }
 
     public void initialisierung() throws MalformedURLException, IOException {
         this.file = new SpeichernLaden(this.model);
-        if (Files.exists(Paths.get(filePath))) {
+        if (Files.exists(Paths.get(FILEPATH))) {
             System.out.println("Speicherdatei gefunden, lade Daten...");
             load();
             this.panel.update(this.model.getRichtig(), this.model.getAbgefragt());
@@ -42,7 +47,6 @@ public class WortTrainerController extends KeyAdapter implements ActionListener 
         else {
         System.out.println("Keine Speicherdatei gefunden, starte von null...");
         }
-        this.model.initialization();
 
         this.panel.setButtonsEnabed(true);
     }
