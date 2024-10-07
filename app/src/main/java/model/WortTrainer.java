@@ -2,7 +2,6 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.Objects;
 
@@ -23,7 +22,7 @@ public class WortTrainer implements Serializable {
 
     public void initialization() {
         WortReader wortReader = new WortReader(WORT_DATEI);
-        this.liste = wortReader.getWORTEINTRAEGE();
+        this.liste = wortReader.getWortEintraege();
 
     }
 
@@ -48,8 +47,7 @@ public class WortTrainer implements Serializable {
     }
 
     public boolean checkIgnoreCase(String wort) {
-        String wort2 = (this.speicherEintrag == null) ? "Hund" : this.speicherEintrag.getWort();
-        if (wort2.equalsIgnoreCase(wort)) {
+        if (this.speicherEintrag.getWort().equalsIgnoreCase(wort)) {
             this.richtig++;
             return true;
         }

@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * WortReader
@@ -15,7 +14,7 @@ import java.util.List;
 
 public class WortReader {
 
-    private final ArrayList<WortEintrag> WORTEINTRAEGE = new ArrayList<>();
+    private ArrayList<WortEintrag> wortEintraege = new ArrayList<>();
 
     public WortReader(String path) {
         readQuestionsFile(path);
@@ -30,7 +29,7 @@ public class WortReader {
                     String wort = parts[0].trim();
                     String url = parts[1].trim();
                     WortEintrag eintrag = new WortEintrag(wort, url);
-                    WORTEINTRAEGE.add(eintrag);
+                    wortEintraege.add(eintrag);
                 }
             }
         } catch (IOException e) {
@@ -38,7 +37,7 @@ public class WortReader {
         }
     }
 
-    public ArrayList<WortEintrag> getWORTEINTRAEGE() {
-        return WORTEINTRAEGE;
+    public ArrayList<WortEintrag> getWortEintraege() {
+        return wortEintraege;
     }
 }

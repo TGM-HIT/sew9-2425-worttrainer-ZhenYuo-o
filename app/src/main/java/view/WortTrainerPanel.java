@@ -1,6 +1,8 @@
 package view;
 
 import model.WortEintrag;
+import model.WortReader;
+import model.WortTrainer;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -26,7 +28,7 @@ public class WortTrainerPanel extends JPanel {
     private String url;
     private final Color color = new Color(235, 235, 235);
 
-    public WortTrainerPanel(ActionListener ah, KeyListener kh, String link) throws MalformedURLException {
+    public WortTrainerPanel(ActionListener ah, KeyListener kh) throws MalformedURLException {
         grafik = new WortTrainerGrafik();
         this.setLayout(new BorderLayout(3, 3));
         this.setBackground(color);
@@ -58,8 +60,7 @@ public class WortTrainerPanel extends JPanel {
         unten.add(anzahlZahl);
         unten.add(nextWord);
         this.add(unten, BorderLayout.PAGE_END);
-        ImageIcon icon = null;
-        Image image = icon.getImage();
+        ImageIcon icon = new ImageIcon(new URL("https://www.radioessen.de/externalimages/?source=jpg140/www.vieler-photography.com1.jpg&dt=201908261605150&resize=1000x750"));        Image image = icon.getImage();
         image = image.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
         this.imgLabel = new JLabel(new ImageIcon(image));
         this.add(this.imgLabel, BorderLayout.CENTER);
@@ -71,7 +72,6 @@ public class WortTrainerPanel extends JPanel {
     public void imageUpdate(String link) throws Exception {
         URI uri = new URI(link);
         URL url = uri.toURL();
-
         ImageIcon icon = new ImageIcon(url);
         Image image = icon.getImage();
         image = image.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
