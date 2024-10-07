@@ -28,7 +28,7 @@ public class WortTrainerPanel extends JPanel {
     private String url;
     private final Color color = new Color(235, 235, 235);
 
-    public WortTrainerPanel(String url, ActionListener ah, KeyListener kh) throws MalformedURLException {
+    public WortTrainerPanel(ActionListener ah, KeyListener kh) throws MalformedURLException {
         grafik = new WortTrainerGrafik();
         this.setLayout(new BorderLayout(3, 3));
         this.setBackground(color);
@@ -60,10 +60,7 @@ public class WortTrainerPanel extends JPanel {
         unten.add(anzahlZahl);
         unten.add(nextWord);
         this.add(unten, BorderLayout.PAGE_END);
-        ImageIcon icon = new ImageIcon(new URL(url));
-        Image image = icon.getImage();
-        image = image.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
-        this.imgLabel = new JLabel(new ImageIcon(image));
+        this.imgLabel = new JLabel(new ImageIcon(""));
         this.add(this.imgLabel, BorderLayout.CENTER);
         this.reset.addActionListener(ah);
         this.nextWord.addActionListener(ah);

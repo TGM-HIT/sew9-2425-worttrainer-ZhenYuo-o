@@ -25,21 +25,21 @@ import java.util.ArrayList;
 public class WortTrainerController extends KeyAdapter implements ActionListener {
     private static final String WORT_DATEI = "app/src/main/java/resources/woerter.csv";
     private WortReader wortReader = new WortReader(WORT_DATEI);
-    private ArrayList<WortEintrag> liste  = wortReader.getWortEintraege();
+    private ArrayList<WortEintrag> liste = wortReader.getWortEintraege();
     private WortTrainer model = new WortTrainer(this.liste);;
     private SpeichernLaden file;
-    private WortTrainerPanel panel = new WortTrainerPanel(model.getAktuelleURL(),this, this);
+    private WortTrainerPanel panel = new WortTrainerPanel(this, this);
     private WortTrainerFrame frame = new WortTrainerFrame("WortTainer", panel);
-    private final String FILEPATH = "WortTrainer.txt";
-
-
+    private final String filePath = "WortTrainer.txt";
 
     public WortTrainerController() throws MalformedURLException {
     }
 
-    public void initialisierung() throws MalformedURLException, IOException {
+    public void initialisierung() throws Exception {
+        this.model.zufall();
+        this.panel.imageUpdate(this.model.getAktuelleURL());
         this.file = new SpeichernLaden(this.model);
-        if (Files.exists(Paths.get(FILEPATH))) {
+        if (Files.exists(Paths.get(filePath))) {
             System.out.println("Speicherdatei gefunden, lade Daten...");
             load();
             this.panel.update(this.model.getRichtig(), this.model.getAbgefragt());
@@ -107,7 +107,7 @@ public class WortTrainerController extends KeyAdapter implements ActionListener 
         this.model = this.file.laden("WortTrainer.txt") ;
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         WortTrainerController controller = new WortTrainerController();
         controller.initialisierung();
     }
