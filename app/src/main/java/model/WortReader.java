@@ -15,7 +15,7 @@ import java.util.List;
 
 public class WortReader {
 
-    private final List<WortEintrag> WORTEINTRAEGE = new ArrayList<>();
+    private final ArrayList<WortEintrag> WORTEINTRAEGE = new ArrayList<>();
 
     public WortReader(String path) {
         readQuestionsFile(path);
@@ -38,7 +38,7 @@ public class WortReader {
         }
     }
 
-    public List<WortEintrag> getWORTEINTRAEGE() {
+    public ArrayList<WortEintrag> getWORTEINTRAEGE() {
         return WORTEINTRAEGE;
     }
 }

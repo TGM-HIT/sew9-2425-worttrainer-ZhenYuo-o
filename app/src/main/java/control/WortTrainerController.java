@@ -2,9 +2,7 @@ package control;
 
 import model.SpeichernLaden;
 import model.WortEintrag;
-import model.WortListe;
 import model.WortTrainer;
-import view.WortTrainerFrame;
 import view.WortTrainerPanel;
 
 import javax.swing.*;
@@ -23,11 +21,10 @@ import java.util.ArrayList;
  * @version 05.10.2024
  */
 public class WortTrainerController extends KeyAdapter implements ActionListener {
-    private WortListe liste = new WortListe(new ArrayList<WortEintrag>());
+    private ArrayList<WortEintrag> liste = new ArrayList<>();
     private WortTrainer model;
     private SpeichernLaden file;
-    private WortTrainerPanel panel = new WortTrainerPanel(this, this);
-    private WortTrainerFrame frame = new WortTrainerFrame("WortTainer", panel);
+    private WortTrainerPanel panel;
     private final String filePath = "WortTrainer.txt";
 
     public WortTrainerController() throws MalformedURLException {
@@ -44,6 +41,7 @@ public class WortTrainerController extends KeyAdapter implements ActionListener 
         else {
         System.out.println("Keine Speicherdatei gefunden, starte von null...");
         }
+        this.panel = new WortTrainerPanel(this, this, this.model.getAktuelleURL());
         this.model.initialization();
 
         this.panel.setButtonsEnabed(true);
@@ -72,17 +70,22 @@ public class WortTrainerController extends KeyAdapter implements ActionListener 
             String textField = this.panel.getTextField();
             if (textField != null) {
                 if (this.model.checkIgnoreCase(textField)) {
+                    this.panel.setAntwort("Richtig!");
+                    this.panel.update(this.model.getRichtig(), this.model.getAbgefragt());
+                    this.panel.leereTextField();
+                    this.model.zufall();
+                    this.panel.update(this.model.getRichtig(), this.model.getAbgefragt());
+                    try {
+                        this.panel.imageUpdate(this.model.getAktuelleURL());
+                    } catch (Exception ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+                else {
+                    this.panel.setAntwort("Falsch! Versuche es nochmal");
+                    this.model.setStatistik(this.model.getRichtig(), this.model.getAbgefragt()+1);
                     this.panel.update(this.model.getRichtig(), this.model.getAbgefragt());
                 }
-            }
-            this.panel.update(this.model.getRichtig(), this.model.getAbgefragt());
-            this.panel.leereTextField();
-            this.model.zufall();
-            this.panel.update(this.model.getRichtig(), this.model.getAbgefragt());
-            try {
-                this.panel.imageUpdate(this.model.getAktuelleURL());
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
             }
         }
     }

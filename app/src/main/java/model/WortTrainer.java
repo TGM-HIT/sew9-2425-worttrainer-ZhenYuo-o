@@ -1,6 +1,8 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Objects;
 
@@ -12,7 +14,7 @@ import java.util.Objects;
  */
 public class WortTrainer implements Serializable {
     static final long serialVersionUID = 1L;
-    private WortListe liste;
+    private ArrayList<WortEintrag> liste;
     private Random zufall = new Random();
     private WortEintrag speicherEintrag;
     private int abgefragt;
@@ -21,38 +23,28 @@ public class WortTrainer implements Serializable {
 
     public void initialization() {
         WortReader wortReader = new WortReader(WORT_DATEI);
-        this.liste = new WortListe(wortReader.getWORTEINTRAEGE());
+        this.liste = wortReader.getWORTEINTRAEGE();
 
     }
 
-    public WortTrainer(WortListe liste) {
+    public WortTrainer(ArrayList<WortEintrag> liste) {
         this.liste = Objects.requireNonNull(liste, "Die WortListe darf nicht null sein");
     }
 
-    public WortTrainer(WortListe liste, int abgefragt, int richtig) {
-        this(liste); // Konstruktor überladen, damit wir nicht doppelt initialisieren
+    public WortTrainer(ArrayList<WortEintrag> liste, int abgefragt, int richtig) {
+        this(liste);
         this.abgefragt = abgefragt;
         this.richtig = richtig;
     }
 
     public void zufall() {
-        int zahl = zufall.nextInt(this.liste.wortListe.size());
-        WortEintrag eintrag = this.liste.wortAuswahl(zahl);  // Auswahl durch die Methode der WortListe
-        this.speicherEintrag = eintrag;
-        this.abgefragt++;  // Erhöhen der Anzahl der abgefragten Wörter
+        int zahl = zufall.nextInt(this.liste.size());
+        this.speicherEintrag = this.liste.get(zahl);
+        this.abgefragt++;
     }
 
     public WortEintrag aktuellerEintrag() {
         return this.speicherEintrag;
-    }
-
-    public boolean check(String wort) {
-        String wort2 = (this.speicherEintrag == null) ? "Hund" : this.speicherEintrag.getWort();
-        if (wort2.equals(wort)) {
-            this.richtig++;
-            return true;
-        }
-        return false;
     }
 
     public boolean checkIgnoreCase(String wort) {

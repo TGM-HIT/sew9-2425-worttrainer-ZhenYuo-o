@@ -1,5 +1,7 @@
 package view;
 
+import model.WortEintrag;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -19,20 +21,22 @@ public class WortTrainerPanel extends JPanel {
     private JTextField textField = new JTextField();
     private WortTrainerGrafik grafik;
     private int richtig, anzahl;
-    private JLabel text, richtigWort, anzahlWort, richtigZahl, anzahlZahl, imgLabel;
-    private JButton reset, speichern;
+    private JLabel frage,antwort, richtigWort, anzahlWort, richtigZahl, anzahlZahl, imgLabel;
+    private JButton reset, nextWord;
     private String url;
     private final Color color = new Color(235, 235, 235);
 
-    public WortTrainerPanel(ActionListener ah, KeyListener kh) throws MalformedURLException {
+    public WortTrainerPanel(ActionListener ah, KeyListener kh, String link) throws MalformedURLException {
         grafik = new WortTrainerGrafik();
         this.setLayout(new BorderLayout(3, 3));
         this.setBackground(color);
         Border bd = BorderFactory.createEmptyBorder(5, 5, 5, 5);
         this.setBorder(bd);
-        JPanel top = new JPanel((new GridLayout(2, 1, 3, 3)));
-        this.text = new JLabel("Welches Wort wird unten dargestellt (Eingabe zum Überprüfen)?");
-        top.add(this.text);
+        JPanel top = new JPanel((new GridLayout(3, 1, 3, 3)));
+        this.frage = new JLabel("Welches Wort wird unten dargestellt (Eingabe zum Überprüfen)?");
+        this.antwort = new JLabel("");
+        top.add(this.frage);
+        top.add(this.antwort);
         top.add(this.textField);
         top.setBackground(color);
         this.add(top, BorderLayout.PAGE_START);
@@ -42,25 +46,25 @@ public class WortTrainerPanel extends JPanel {
         this.add(links, BorderLayout.LINE_END);
         JPanel unten = new JPanel(new GridLayout(2, 3, 15, 15));
         this.reset = new JButton("Zurücksetzen");
-        this.speichern = new JButton("Speichern");
+        this.nextWord = new JButton("Speichern");
         this.richtigWort = new JLabel("Richtige Wörter:");
         this.richtigZahl = new JLabel("0");
-        this.anzahlWort = new JLabel("Anzahl Wörter:");
+        this.anzahlWort = new JLabel("Abgefragt:");
         this.anzahlZahl = new JLabel("0");
         unten.add(richtigWort);
         unten.add(richtigZahl);
         unten.add(reset);
         unten.add(anzahlWort);
         unten.add(anzahlZahl);
-        unten.add(speichern);
+        unten.add(nextWord);
         this.add(unten, BorderLayout.PAGE_END);
-        ImageIcon icon = new ImageIcon(new URL("https://www.radioessen.de/externalimages/?source=jpg140/www.vieler-photography.com1.jpg&dt=201908261605150&resize=1000x750"));
+        ImageIcon icon = null;
         Image image = icon.getImage();
         image = image.getScaledInstance(250, 250, Image.SCALE_SMOOTH);
         this.imgLabel = new JLabel(new ImageIcon(image));
         this.add(this.imgLabel, BorderLayout.CENTER);
         this.reset.addActionListener(ah);
-        this.speichern.addActionListener(ah);
+        this.nextWord.addActionListener(ah);
         this.textField.addKeyListener(kh);
     }
 
@@ -105,6 +109,11 @@ public class WortTrainerPanel extends JPanel {
     public void setButtonsEnabed(boolean status) {
         this.reset.setEnabled(status);
         this.textField.setEnabled(status);
+    }
+
+    public void setAntwort(String antwort) {
+        this.antwort.setText(antwort);
+        this.antwort.updateUI();
     }
 
 }
