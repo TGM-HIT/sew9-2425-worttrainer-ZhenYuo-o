@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set executable permissions for gradlew
         run: chmod +x ./gradlew
@@ -29,13 +29,13 @@ jobs:
         run: ls -al build/docs/javadoc
 
       - name: Upload JAR file
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: my-jar
           path: build/libs/*.jar
 
       - name: Upload Javadocs
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: my-javadocs
           path: build/docs/javadoc/**
