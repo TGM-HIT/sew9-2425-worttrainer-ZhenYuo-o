@@ -1,7 +1,10 @@
-name: Build and Package
+name: Java CI Workflow
 
 on:
   push:
+    branches:
+      - main
+  pull_request:
     branches:
       - main
 
@@ -16,26 +19,29 @@ jobs:
       - name: Set executable permissions for gradlew
         run: chmod +x ./gradlew
 
-      - name: Build with Gradle
-        run: ./gradlew build --info
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
-      - name: Check build output
-        run: ls -al build/libs
+      - name: Build with Gradle or Maven
+        run: ./gradlew build
+
+      - name: Create Jar
+        run: ./gradlew jar
 
       - name: Generate Javadocs
         run: ./gradlew javadoc
 
-      - name: Check Javadocs output
-        run: ls -al build/docs/javadoc
-
       - name: Upload JAR file
         uses: actions/upload-artifact@v3
         with:
-          name: my-jar
+          name: my-java-app
           path: build/libs/*.jar
 
       - name: Upload Javadocs
         uses: actions/upload-artifact@v3
         with:
-          name: my-javadocs
+          name: javadocs
           path: build/docs/javadoc/**
