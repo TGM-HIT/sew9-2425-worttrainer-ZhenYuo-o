@@ -7,6 +7,7 @@
 
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
+    kotlin("jvm") version "2.0.21"
     application
 }
 
@@ -16,12 +17,9 @@ repositories {
 }
 
 dependencies {
-    // Use JUnit Jupiter for testing.
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.24")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
-
-
-    // This dependency is used by the application.
     implementation(libs.guava)
     implementation ("org.apache.commons:commons-csv:1.12.0")
 }
@@ -34,11 +32,15 @@ java {
 }
 
 application {
-    // Define the main class for the application.
-    mainClass = "control.WortTrainerController"
+    mainClass.set("control.WortTrainerController")
 }
 
 tasks.named<Test>("test") {
-    // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+}
+
+tasks.withType<Jar> {
+    manifest {
+        attributes["Main-Class"] = "control.WortTrainerController"
+    }
 }
