@@ -9,6 +9,7 @@ import view.WortTrainerPanel;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -23,16 +24,16 @@ import java.util.ArrayList;
  * @version 07.10.2024
  */
 public class WortTrainerController extends KeyAdapter implements ActionListener {
-    private static final String WORT_DATEI = "app/src/main/java/resources/woerter.csv";
+    private static final String WORT_DATEI = "app/src/main/resources/woerter.csv";
     private WortReader wortReader = new WortReader(WORT_DATEI);
     private ArrayList<WortEintrag> liste = wortReader.getWortEintraege();
     private WortTrainer model = new WortTrainer(this.liste);;
     private SpeichernLaden file;
     private WortTrainerPanel panel;
     private WortTrainerFrame frame;
-    private final String filePath = "WortTrainer.txt";
+    private final String filePath = "app/src/main/resources/WortTrainer.txt";
 
-    public WortTrainerController() throws MalformedURLException {
+    public WortTrainerController() throws MalformedURLException, FileNotFoundException {
     }
 
     public void initialisierung() throws Exception {
@@ -98,7 +99,7 @@ public class WortTrainerController extends KeyAdapter implements ActionListener 
     public void save() {
         try {
             this.file = new SpeichernLaden(this.model);
-            this.file.speichern("WortTrainer.txt");
+            this.file.speichern(this.filePath);
         }
         catch (Exception e) {
             System.err.println(e);
@@ -106,7 +107,7 @@ public class WortTrainerController extends KeyAdapter implements ActionListener 
     }
 
     public void load() throws IOException {
-        this.model = this.file.laden("WortTrainer.txt") ;
+        this.model = this.file.laden(this.filePath) ;
     }
 
     public static void main(String[] args) throws Exception {

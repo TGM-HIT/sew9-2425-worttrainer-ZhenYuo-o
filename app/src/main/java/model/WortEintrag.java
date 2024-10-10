@@ -30,13 +30,14 @@ public class WortEintrag implements Serializable {
     }
 
     public static boolean checkURL(String url) {
-    try {
-        new URI(url);
-        return true;
-    } catch (Exception e) {
-        return false;
-      }
+        try {
+            URI uri = new URI(url);
+            return uri.getScheme() != null && (uri.getScheme().equals("http") || uri.getScheme().equals("https"));
+        } catch (Exception e) {
+            return false;
+        }
     }
+
     public void setUrl(String url) {
         if (checkURL(url)) {
             this.url = url;

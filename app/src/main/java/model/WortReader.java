@@ -4,6 +4,7 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class WortReader {
 
     private ArrayList<WortEintrag> wortEintraege = new ArrayList<>();
 
-    public WortReader(String path) {
+    public WortReader(String path) throws FileNotFoundException {
         readQuestionsFile(path);
     }
 
