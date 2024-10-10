@@ -1,6 +1,9 @@
 package model;
 
-import java.io.BufferedReader;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,7 +14,6 @@ import java.util.ArrayList;
  * @author ZhenYu Zhan
  * @version 05.10.2024
  */
-
 public class WortReader {
 
     private ArrayList<WortEintrag> wortEintraege = new ArrayList<>();
@@ -21,16 +23,15 @@ public class WortReader {
     }
 
     public void readQuestionsFile(String path) {
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length == 2) {
-                    String wort = parts[0].trim();
-                    String url = parts[1].trim();
-                    WortEintrag eintrag = new WortEintrag(wort, url);
-                    wortEintraege.add(eintrag);
-                }
+        try (FileReader reader = new FileReader(path);
+             CSVParser csvParser = new CSVParser(reader, CSVFormat.Builder.create()
+                     .build())) {
+
+            for (CSVRecord record : csvParser) {
+                String wort = record.get(0).trim();
+                String url = record.get(1).trim();
+                WortEintrag eintrag = new WortEintrag(wort, url);
+                wortEintraege.add(eintrag);
             }
         } catch (IOException e) {
             e.printStackTrace();

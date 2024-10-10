@@ -91,6 +91,7 @@ public class WortTrainerController extends KeyAdapter implements ActionListener 
                     this.model.setStatistik(this.model.getRichtig(), this.model.getAbgefragt()+1);
                     this.panel.update(this.model.getRichtig(), this.model.getAbgefragt());
                 }
+                save();
             }
         }
     }
