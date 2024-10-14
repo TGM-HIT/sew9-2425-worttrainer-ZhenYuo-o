@@ -34,7 +34,7 @@ public class WortReader {
                 WortEintrag eintrag = new WortEintrag(wort, url);
                 wortEintraege.add(eintrag);
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

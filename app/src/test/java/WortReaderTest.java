@@ -19,7 +19,9 @@ class WortReaderTest {
 
     @Test
     void testInvalidFile() throws FileNotFoundException {
-        WortReader reader = new WortReader("invalid/path/to/file.csv");
-        reader.getWortEintraege();
+        Exception exception = assertThrows(FileNotFoundException.class, () -> {
+            WortReader reader = new WortReader("invalid/path/to/file.csv");
+            reader.getWortEintraege();
+        });
     }
 }
