@@ -25,17 +25,17 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Build with Gradle or Maven
+      - name: Debug Gradle warnings
+        run: ./gradlew build --warning-mode all
+
+      - name: Build with Gradle
         run: ./gradlew build
 
       - name: Create Jar
         run: ./gradlew jar
 
       - name: Generate Javadocs
-        run: |
-          ./gradlew javadoc
-          ls
-          ls build/
+        run: ./gradlew javadoc
 
       - name: Upload JAR file
         uses: actions/upload-artifact@v3
