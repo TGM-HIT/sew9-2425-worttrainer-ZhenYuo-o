@@ -25,8 +25,17 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Debug Gradle warnings
-        run: ./gradlew build --warning-mode all
+      - name: Run Tests
+        run: ./gradlew test --warning-mode all
+
+      - name: Debug Build Artifacts
+        run: |
+          echo "Listing root directory"
+          ls -R
+          echo "Listing build/libs"
+          ls -R build/libs || echo "build/libs not found"
+          echo "Listing build/docs/javadoc"
+          ls -R build/docs/javadoc || echo "build/docs/javadoc not found"
 
       - name: Build with Gradle
         run: ./gradlew build
