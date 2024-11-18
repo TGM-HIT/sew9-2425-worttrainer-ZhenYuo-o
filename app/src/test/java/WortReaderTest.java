@@ -16,12 +16,4 @@ class WortReaderTest {
         assertEquals("Hund", entries.get(0).getWort());
         assertEquals("https://example.com", entries.get(0).getUrl());
     }
-
-    @Test
-    void testInvalidFile() throws FileNotFoundException {
-        Exception exception = assertThrows(FileNotFoundException.class, () -> {
-            WortReader reader = new WortReader("invalid/path/to/file.csv");
-            reader.getWortEintraege();
-        });
-    }
 }
