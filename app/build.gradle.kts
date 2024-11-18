@@ -38,7 +38,7 @@ tasks.named<Test>("test") {
     useJUnitPlatform()
 }
 tasks.register<Copy>("copyResourcesToJarDir") {
-    from("/woerter.csv")
+    from("src/main/resources/woerter.csv")
     into("$buildDir/libs")
 }
 
