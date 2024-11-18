@@ -49,6 +49,9 @@ jobs:
       - name: Generate Javadocs
         run: ./gradlew javadoc
 
+      - name: Create Fat JAR
+        run: ./gradlew shadowJar
+
       - name: Upload JAR file and resources
         uses: actions/upload-artifact@v3
         with:

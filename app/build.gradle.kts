@@ -6,7 +6,7 @@
  */
 
 plugins {
-    // Apply the application plugin to add support for building a CLI application in Java.
+    id("com.github.johnrengelman.shadow") version "8.1.1"
     application
 }
 
@@ -20,7 +20,8 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
     implementation(libs.guava)
-    implementation ("org.apache.commons:commons-csv:1.12.0")
+    implementation ("org.apache.commons:commons-csv:1.10.0")
+
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
