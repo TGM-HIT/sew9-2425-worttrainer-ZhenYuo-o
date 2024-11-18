@@ -43,14 +43,19 @@ jobs:
       - name: Create Jar
         run: ./gradlew jar
 
+      - name: Copy woerter.csv to build/libs
+        run: cp app/src/main/resources/woerter.csv app/build/libs/
+
       - name: Generate Javadocs
         run: ./gradlew javadoc
 
-      - name: Upload JAR file
+      - name: Upload JAR file and resources
         uses: actions/upload-artifact@v3
         with:
           name: my-java-app
-          path: app/build/libs/app.jar
+          path: |
+            app/build/libs/app.jar
+            app/build/libs/woerter.csv
 
       - name: Upload Javadocs
         uses: actions/upload-artifact@v3
