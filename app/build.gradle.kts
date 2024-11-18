@@ -46,3 +46,8 @@ tasks.withType<Jar> {
 tasks.withType<Jar> {
     from(sourceSets.main.get().resources)
 }
+tasks.withType<Jar> {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from(sourceSets.main.get().resources)
+}
+
