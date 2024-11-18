@@ -25,13 +25,13 @@ import java.util.ArrayList;
  * @version 07.10.2024
  */
 public class WortTrainerController extends KeyAdapter implements ActionListener {
-    private static final String WORT_DATEI = "/woerter.csv";
+    private static final String WORT_DATEI = "woerter.csv";
     private WortReader wortReader = new WortReader(WORT_DATEI);
     private ArrayList<WortEintrag> liste = wortReader.getWortEintraege();
     private WortTrainer model = new WortTrainer(this.liste);;
     private SpeichernLaden file;
     private WortTrainerPanel panel;
-    private final String filePath = "/WortTrainer.txt";
+    private final String filePath = "WortTrainer.txt";
 
     public WortTrainerController() throws FileNotFoundException {
     }
