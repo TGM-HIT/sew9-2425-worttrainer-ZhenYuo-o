@@ -43,3 +43,6 @@ tasks.withType<Jar> {
         attributes["Main-Class"] = "control.WortTrainerController"
     }
 }
+tasks.withType<Jar> {
+    from(sourceSets.main.get().resources)
+}
