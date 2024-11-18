@@ -32,7 +32,10 @@ jobs:
         run: ./gradlew jar
 
       - name: Generate Javadocs
-        run: ./gradlew javadoc
+        run: |
+          ./gradlew javadoc
+          ls
+          ls build/
 
       - name: Upload JAR file
         uses: actions/upload-artifact@v3

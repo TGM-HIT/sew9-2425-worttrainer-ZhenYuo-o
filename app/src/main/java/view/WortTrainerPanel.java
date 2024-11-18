@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 /**
@@ -24,7 +25,7 @@ public class WortTrainerPanel extends JPanel {
     private String url;
     private final Color color = new Color(235, 235, 235);
 
-    public WortTrainerPanel(ActionListener ah, KeyListener kh, String url) throws Exception {
+    public WortTrainerPanel(ActionListener ah, KeyListener kh, String url) throws MalformedURLException, URISyntaxException {
         grafik = new WortTrainerGrafik();
         imgLabel = new JLabel();
         this.setLayout(new BorderLayout(3, 3));
@@ -64,7 +65,7 @@ public class WortTrainerPanel extends JPanel {
         this.textField.addKeyListener(kh);
     }
 
-    public ImageIcon imageUpdate(String link) throws Exception {
+    public ImageIcon imageUpdate(String link) throws URISyntaxException, MalformedURLException {
         URI uri = new URI(link);
         URL url = uri.toURL();
         ImageIcon icon = new ImageIcon(url);

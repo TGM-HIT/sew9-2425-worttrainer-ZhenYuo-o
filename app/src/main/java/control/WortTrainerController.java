@@ -12,6 +12,7 @@ import java.awt.event.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -30,16 +31,15 @@ public class WortTrainerController extends KeyAdapter implements ActionListener 
     private WortTrainer model = new WortTrainer(this.liste);;
     private SpeichernLaden file;
     private WortTrainerPanel panel;
-    private WortTrainerFrame frame;
     private final String filePath = "app/src/main/resources/WortTrainer.txt";
 
-    public WortTrainerController() throws MalformedURLException, FileNotFoundException {
+    public WortTrainerController() throws FileNotFoundException {
     }
 
-    public void initialisierung() throws Exception {
+    public void initialisierung() throws IOException, URISyntaxException {
         this.model.zufall();
         this.panel = new WortTrainerPanel(this, this, this.model.getAktuelleURL());
-        this.frame = new WortTrainerFrame("WortTainer", panel);
+        WortTrainerFrame frame = new WortTrainerFrame("WortTainer", panel);
         this.file = new SpeichernLaden(this.model);
         if (Files.exists(Paths.get(filePath))) {
             System.out.println("Speicherdatei gefunden, lade Daten...");
