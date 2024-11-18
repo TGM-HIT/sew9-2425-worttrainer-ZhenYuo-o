@@ -28,15 +28,6 @@ jobs:
       - name: Run Tests
         run: ./gradlew test --warning-mode all
 
-      - name: Debug Build Artifacts
-        run: |
-          echo "Listing root directory"
-          ls -R
-          echo "Listing build/libs"
-          ls -R build/libs || echo "build/libs not found"
-          echo "Listing build/docs/javadoc"
-          ls -R build/docs/javadoc || echo "build/docs/javadoc not found"
-
       - name: Build with Gradle
         run: ./gradlew build
 
@@ -45,7 +36,16 @@ jobs:
 
       - name: Generate Javadocs
         run: ./gradlew javadoc
-
+        
+      - name: Debug Build Artifacts
+        run: |
+          echo "Listing root directory"
+          ls -R
+          echo "Listing build/libs"
+          ls -R build/libs || echo "build/libs not found"
+          echo "Listing build/docs/javadoc"
+          ls -R build/docs/javadoc || echo "build/docs/javadoc not found"
+          
       - name: Upload JAR file
         uses: actions/upload-artifact@v3
         with:
