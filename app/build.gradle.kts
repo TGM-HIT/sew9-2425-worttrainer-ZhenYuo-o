@@ -37,7 +37,14 @@ application {
 tasks.named<Test>("test") {
     useJUnitPlatform()
 }
+tasks.register<Copy>("copyResourcesToJarDir") {
+    from("/woerter.csv")
+    into("$buildDir/libs")
+}
 
+tasks.named("build") {
+    finalizedBy("copyResourcesToJarDir")
+}
 tasks.withType<Jar> {
     manifest {
         attributes["Main-Class"] = "control.WortTrainerController"
